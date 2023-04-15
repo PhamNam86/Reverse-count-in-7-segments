@@ -1,0 +1,53 @@
+   //PWM module: PWM with ADC    
+ //
+#include <16f887.h>
+#device *=16 ADC=10
+#fuses hs, nowdt, put, nolvp, brownout
+#use delay(clock=8M)
+#include <math.h>
+#include <string.h>
+#include <stdlib.h>
+#include <luutinh.h>
+#include <lcd.h>
+unsigned int16 hight_duty = 0;
+unsigned int16 Duty=0;            // Duty of Chooper
+#separate void READ_SO()          // Chuong trinh CON de doc Gia tri tu ADC-Channel 0
+   {
+    set_adc_channel(5);           // Khai bao chan doc A/D A0
+    delay_us(10);
+    Duty = read_adc();            // So doc duoc tu A/D
+   }
+void main()
+{
+ set_tris_c(0X00);
+ set_tris_d(0x00);
+ setup_adc_ports(all_ANALOG);
+ setup_adc(ADC_CLOCK_INTERNAL);      // using internal clock
+ setup_ccp1(ccp_pwm);        // su dung chan RC2 lam PWM
+ setup_ccp2(ccp_pwm);
+ setup_timer_2(T2_DIV_BY_1,199,1);  // Xung Vuong, tan so: f = 10Khz 
+ set_PWM1_duty(0);
+ set_PWM2_duty(0);                  // Dau tien:  hight_duty = 0%
+ lcd_init();                        // Khoi dong lcd
+ delay_ms(4);                       // Cho khoi dong lcd xong
+ lcd_gotoxy(2,1);
+ printf(lcd_putc,"Use PWM Module");
+ lcd_gotoxy(1,2);
+ printf(lcd_putc,"f:10Khz");
+ lcd_gotoxy(9,2);
+ printf(lcd_putc,"Duty:0");
+ set_tris_b(0x00);    
+ while(true)
+  {
+   READ_SO();
+   delay_ms(5);    
+   set_PWM1_duty(Duty); 
+   set_PWM2_duty(Duty);                         // chan RC2 --> LED de xem do Sang LED thay doi
+   hight_duty = Duty/2;                         // Vi du: Duty = 120 --> hight_duty = 60%
+   if(hight_duty > 400) hight_duty= 400;       // gioi han cua Do Rong Xung la 100%
+   lcd_gotoxy(14,2);
+   printf(lcd_putc,"%ld ",hight_duty);
+   delay_ms(50);
+  }
+} 
+//------------------- END ----------------------//

@@ -1,0 +1,59 @@
+004-005 @READ_PROGRAM_MEMORY8.P1
+004     @WRITE_PROGRAM_MEMORY8.P2
+015     CCP_1_LOW
+015-016 CCP_1
+016     CCP_1_HIGH
+01B     CCP_2_LOW
+01B-01C CCP_2
+01C     CCP_2_HIGH
+020     i
+021     k
+022     h
+023     @TRIS_C
+024     main.@SCRATCH1
+025     @delay_ms1.P1
+077     @SCRATCH
+078     @SCRATCH
+078     _RETURN_
+079     @SCRATCH
+07A     @SCRATCH
+07B     @SCRATCH
+107.6   C1OUT
+108.6   C2OUT
+10D-10E @READ_PROGRAM_MEMORY8.P1
+10D-10E @WRITE_PROGRAM_MEMORY8.P2
+
+ROM Allocation:
+0013  @delay_ms1
+0004  led7
+0029  main
+0029  @cinit
+
+Project Directory:
+    D:\Microprocess System\Proteus\Reverse count in 7 segments\
+
+Project Files:
+    week_12.c
+    C:\Program Files (x86)\PICC\devices\16f887.h
+
+Units:
+    week_12.c (main)
+
+Compiler Settings:
+    Processor:      PIC16F887
+    Pointer Size:   16
+    ADC Range:      0-255
+    Opt Level:      9
+    Short,Int,Long: UNSIGNED: 1,8,16
+    Float,Double:   32,32
+
+Output Files:
+    Errors:      week_12.err
+    Ext Symbols: week_12.esym
+    INHX8:       week_12.hex
+    Symbols:     week_12.sym
+    List:        week_12.lst
+    Debug/COFF:  week_12.cof
+    Project:     week_12.PJT
+    Call Tree:   week_12.tre
+    Statistics:  week_12.sta
